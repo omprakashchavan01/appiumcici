@@ -10,8 +10,8 @@
 		<parameter name="wdaLocalPort" value="10001" />
 		<parameter name="webkitDebugProxyPort" value="11001" />
 		<classes>
-			<class name="com.qa.tests.LoginTests"></class>
-			<class name="com.qa.tests.ProductTests"></class>
+			<class name="com.qa.tests.LoginTests"/>
+			<!--<class name="com.qa.tests.ProductTests"></class>-->
 		</classes>
 	</test>
 </suite> <!-- Suite -->
