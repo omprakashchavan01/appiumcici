@@ -273,7 +273,10 @@ public class BaseTest {
 				break;
 			case "iOS":
 				desiredCapabilities.setCapability("automationName", props.getProperty("iOSAutomationName"));
-				String iOSAppUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
+			//	String iOSAppUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
+				String iOSAppUrl = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+						+ File.separator + "resources" + File.separator + "app" + File.separator +
+						"SwagLabsMobileApp.app";
 				utils.log().info("appUrl is" + iOSAppUrl);
 				desiredCapabilities.setCapability("bundleId", props.getProperty("iOSBundleId"));
 				desiredCapabilities.setCapability("wdaLocalPort", wdaLocalPort);
