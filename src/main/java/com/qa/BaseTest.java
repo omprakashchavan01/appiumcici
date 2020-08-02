@@ -157,9 +157,9 @@ public class BaseTest {
 	public void beforeSuite() throws Exception, Exception {
 		ThreadContext.put("ROUTINGKEY", "ServerLogs");
         //Uncomment for Mac
-		//server = getAppiumService();
+		server = getAppiumService();
         //Uncomment for Windows
-        server = getAppiumServerDefault();
+        //server = getAppiumServerDefault();
 		if(!checkIfAppiumServerIsRunnning(4723)) {
 			server.start();
 			server.clearOutPutStreams();
