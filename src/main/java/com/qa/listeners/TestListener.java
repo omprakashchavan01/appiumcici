@@ -61,15 +61,10 @@ public class TestListener implements ITestListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			ExtentReport.getTest().fail("Test Failed", 
-					MediaEntityBuilder.createScreenCaptureFromPath(completeImagePath).build());
-			ExtentReport.getTest().fail("Test Failed", 
-					MediaEntityBuilder.createScreenCaptureFromBase64String(new String(encoded, StandardCharsets.US_ASCII)).build());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ExtentReport.getTest().fail("Test Failed",
+				MediaEntityBuilder.createScreenCaptureFromPath(completeImagePath).build());
+		ExtentReport.getTest().fail("Test Failed",
+				MediaEntityBuilder.createScreenCaptureFromBase64String(new String(encoded, StandardCharsets.US_ASCII)).build());
 		ExtentReport.getTest().fail(result.getThrowable());
 	}
 

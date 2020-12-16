@@ -7,7 +7,7 @@
 		<parameter name="emulator" value="true" />
 		<parameter name="platformName" value="Android" />
 		<parameter name="udid" value="emulator-5554" />
-		<parameter name="deviceName" value="Pixel_3" />
+		<parameter name="deviceName" value="Pixel_3a_API_30_x86" />
 		<parameter name="systemPort" value="10000" />
 		<parameter name="chromeDriverPort" value="11000" />
 		<classes>
