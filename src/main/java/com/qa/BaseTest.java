@@ -142,13 +142,11 @@ public class BaseTest {
 	@BeforeSuite
 	public void beforeSuite() throws Exception, Exception {
 		ThreadContext.put("ROUTINGKEY", "ServerLogs");
-        //Uncomment for Mac
-		server = getAppiumService();
-        //Uncomment for Windows
-        //server = getAppiumServerDefault();
+//		server = getAppiumService(); // -> If using Mac, uncomment this statement and comment below statement
+		server = getAppiumServerDefault(); // -> If using Windows, uncomment this statement and comment above statement
 		if(!checkIfAppiumServerIsRunnning(4723)) {
 			server.start();
-			server.clearOutPutStreams();
+			server.clearOutPutStreams(); // -> Comment this if you don't want to see server logs in the console
 			utils.log().info("Appium server started");
 		} else {
 			utils.log().info("Appium server already running");
@@ -169,17 +167,21 @@ public class BaseTest {
 	    }
 	    return isAppiumServerRunning;
 	}
-	
-	@AfterSuite
+
+	@AfterSuite (alwaysRun = true)
 	public void afterSuite() {
-		server.stop();
-		utils.log().info("Appium server stopped");
+		if(server.isRunning()){
+			server.stop();
+			utils.log().info("Appium server stopped");
+		}
 	}
 
+	// for Windows
 	public AppiumDriverLocalService getAppiumServerDefault() {
 		return AppiumDriverLocalService.buildDefaultService();
 	}
 
+	// for Mac. Update the paths as per your Mac setup
 	public AppiumDriverLocalService getAppiumService() {
 		HashMap<String, String> environment = new HashMap<String, String>();
 		environment.put("PATH", "/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:/Users/omprakashchavan/Library/Android/sdk/tools:/Users/omprakashchavan/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin" + System.getenv("PATH"));
@@ -189,6 +191,7 @@ public class BaseTest {
 				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
 				.usingPort(4723)
 				.withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+//				.withArgument(() -> "--allow-insecure","chromedriver_autodownload")
 				.withEnvironment(environment)
 				.withLogFile(new File("ServerLogs/server.log")));
 	}
@@ -378,8 +381,10 @@ public class BaseTest {
 	  getDriver().executeScript("mobile:scroll", scrollObject);
   }
 
-  @AfterTest
+  @AfterTest (alwaysRun = true)
   public void afterTest() {
-	  getDriver().quit();
-  }
+		  if(getDriver() != null){
+			getDriver().quit();
+		}
+	  }
 }
