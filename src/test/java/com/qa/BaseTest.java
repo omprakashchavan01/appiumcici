@@ -3,10 +3,9 @@ package com.qa;
 import com.aventstack.extentreports.Status;
 import com.qa.reports.ExtentReport;
 import com.qa.utils.TestUtils;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.FindsByAndroidUIAutomator;
 import io.appium.java_client.InteractsWithApps;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -184,7 +183,7 @@ public class BaseTest {
 	// for Mac. Update the paths as per your Mac setup
 	public AppiumDriverLocalService getAppiumService() {
 		HashMap<String, String> environment = new HashMap<String, String>();
-		environment.put("PATH", "/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:/Users/omprakashchavan/Library/Android/sdk/tools:/Users/omprakashchavan/Library/Android/sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin" + System.getenv("PATH"));
+		environment.put("PATH", "/Users/omprakashchavan/Library/Android/sdk/platform-tools:/Users/omprakashchavan/Library/Android/sdk/cmdline-tools:/Library/Java/JavaVirtualMachines/jdk-15.0.2.jdk/Contents/Home/bin:/usr/local/opt/node@14/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin" + System.getenv("PATH"));
 		environment.put("ANDROID_HOME", "/Users/omprakashchavan/Library/Android/sdk");
 		return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
 				.usingDriverExecutable(new File("/usr/local/bin/node"))
@@ -292,55 +291,55 @@ public class BaseTest {
 	  }
   }
   
-  public void waitForVisibility(MobileElement e) {
-	  WebDriverWait wait = new WebDriverWait(getDriver(), TestUtils.WAIT);
+  public void waitForVisibility(WebElement e) {
+	  WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(TestUtils.WAIT));
 	  wait.until(ExpectedConditions.visibilityOf(e));
   }
   
-  public void waitForVisibility(WebElement e){
+/*  public void waitForVisibility(WebElement e){
 	  Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
 	  .withTimeout(Duration.ofSeconds(30))
 	  .pollingEvery(Duration.ofSeconds(5))
 	  .ignoring(NoSuchElementException.class);
 	  
 	  wait.until(ExpectedConditions.visibilityOf(e));
-	  }
+	  }*/
   
-  public void clear(MobileElement e) {
+  public void clear(WebElement e) {
 	  waitForVisibility(e);
 	  e.clear();
   }
   
-  public void click(MobileElement e) {
+  public void click(WebElement e) {
 	  waitForVisibility(e);
 	  e.click();
   }
   
-  public void click(MobileElement e, String msg) {
+  public void click(WebElement e, String msg) {
 	  waitForVisibility(e);
 	  utils.log().info(msg);
 	  ExtentReport.getTest().log(Status.INFO, msg);
 	  e.click();
   }
   
-  public void sendKeys(MobileElement e, String txt) {
+  public void sendKeys(WebElement e, String txt) {
 	  waitForVisibility(e);
 	  e.sendKeys(txt);
   }
   
-  public void sendKeys(MobileElement e, String txt, String msg) {
+  public void sendKeys(WebElement e, String txt, String msg) {
 	  waitForVisibility(e);
 	  utils.log().info(msg);
 	  ExtentReport.getTest().log(Status.INFO, msg);
 	  e.sendKeys(txt);
   }
   
-  public String getAttribute(MobileElement e, String attribute) {
+  public String getAttribute(WebElement e, String attribute) {
 	  waitForVisibility(e);
 	  return e.getAttribute(attribute);
   }
   
-  public String getText(MobileElement e, String msg) {
+  public String getText(WebElement e, String msg) {
 	  String txt = null;
 	  switch(getPlatform()) {
 	  case "Android":
@@ -354,20 +353,32 @@ public class BaseTest {
 	  ExtentReport.getTest().log(Status.INFO, msg);
 	  return txt;
   }
-  
-  public void closeApp() {
-	  ((InteractsWithApps) getDriver()).closeApp();
-  }
-  
-  public void launchApp() {
-	  ((InteractsWithApps) getDriver()).launchApp();
-  }
-  
-  public MobileElement scrollToElement() {	  
-		return (MobileElement) ((FindsByAndroidUIAutomator) getDriver()).findElementByAndroidUIAutomator(
+
+	public void closeApp() {
+		switch(getPlatform()){
+			case "Android":
+				((InteractsWithApps) getDriver()).terminateApp(getProps().getProperty("androidAppPackage"));
+				break;
+			case "iOS":
+				((InteractsWithApps) getDriver()).terminateApp(getProps().getProperty("iOSBundleId"));
+		}
+	}
+
+	public void launchApp() {
+		switch(getPlatform()){
+			case "Android":
+				((InteractsWithApps) getDriver()).activateApp(getProps().getProperty("androidAppPackage"));
+				break;
+			case "iOS":
+				((InteractsWithApps) getDriver()).activateApp(getProps().getProperty("iOSBundleId"));
+		}
+	}
+
+	public WebElement scrollToElement() {
+		return getDriver().findElement(AppiumBy.androidUIAutomator(
 				"new UiScrollable(new UiSelector()" + ".scrollable(true)).scrollIntoView("
-						+ "new UiSelector().description(\"test-Price\"));");
-  }
+						+ "new UiSelector().description(\"test-Price\"));"));
+	}
   
   public void iOSScrollToElement() {
 	  RemoteWebElement element = (RemoteWebElement)getDriver().findElement(By.name("test-ADD TO CART"));

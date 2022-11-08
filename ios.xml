@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="tests">
-	<test name="iPhone11">
+	<test name="iPhone14ProMax">
 		<listeners>
-			<listener class-name="com.qa.listeners.TestListener" />
+			<listener class-name="listeners.com.qa.TestListener" />
 		</listeners>
 		<parameter name="platformName" value="iOS" />
 		<parameter name="udid" value="321266E3-44E0-4DAF-A81E-F15FDCB4A62C" />
