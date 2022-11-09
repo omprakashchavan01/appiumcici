@@ -2,7 +2,7 @@
 <suite name="Suite" parallel="tests">
 	<test name="Pixel_5">
 		<listeners>
-			<listener class-name="listeners.com.qa.TestListener" />
+			<listener class-name="com.qa.listeners.TestListener" />
 		</listeners>
 		<parameter name="emulator" value="true" />
 		<parameter name="platformName" value="Android" />

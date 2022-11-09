@@ -9,7 +9,8 @@ import org.openqa.selenium.WebElement;
 public class ProductsPage extends MenuPage {
 	TestUtils utils = new TestUtils();
 	
-	@AndroidFindBy (xpath = "//android.widget.ScrollView[@content-desc=\"test-PRODUCTS\"]/preceding-sibling::android.view.ViewGroup/android.widget.TextView") 
+	@AndroidFindBy (xpath = "//android.view.ViewGroup[@content-desc=\"test-Cart drop zone\"]" +
+			"/android.view.ViewGroup/android.widget.TextView")
 	@iOSXCUITFindBy (xpath ="//XCUIElementTypeOther[@name=\"test-Toggle\"]/parent::*[1]/preceding-sibling::*[1]")
 	private WebElement productTitleTxt;
 	
