@@ -141,8 +141,8 @@ public class BaseTest {
 	@BeforeSuite
 	public void beforeSuite() throws Exception, Exception {
 		ThreadContext.put("ROUTINGKEY", "ServerLogs");
-		server = getAppiumService(); // -> If using Mac, uncomment this statement and comment below statement
-//		server = getAppiumServerDefault(); // -> If using Windows, uncomment this statement and comment above statement
+//		server = getAppiumService(); // -> If using Mac, uncomment this statement and comment below statement
+		server = getAppiumServerDefault(); // -> If using Windows, uncomment this statement and comment above statement
 		if(!checkIfAppiumServerIsRunnning(4723)) {
 			server.start();
 			server.clearOutPutStreams(); // -> Comment this if you don't want to see server logs in the console
@@ -183,8 +183,8 @@ public class BaseTest {
 	// for Mac. Update the paths as per your Mac setup
 	public AppiumDriverLocalService getAppiumService() {
 		HashMap<String, String> environment = new HashMap<String, String>();
-		environment.put("PATH", "/Users/omprakashchavan/Library/Android/sdk/platform-tools:/Users/omprakashchavan/Library/Android/sdk/cmdline-tools:/Library/Java/JavaVirtualMachines/jdk-15.0.2.jdk/Contents/Home/bin:/usr/local/opt/node@14/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin" + System.getenv("PATH"));
-		environment.put("ANDROID_HOME", "/Users/omprakashchavan/Library/Android/sdk");
+		environment.put("PATH", "enter_your_path_here" + System.getenv("PATH"));
+		environment.put("ANDROID_HOME", "enter_your_android_home_path_here");
 		return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
 				.usingDriverExecutable(new File("/usr/local/bin/node"))
 				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
