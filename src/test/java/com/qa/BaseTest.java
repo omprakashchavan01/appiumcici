@@ -253,7 +253,7 @@ public class BaseTest {
 		//		String androidAppUrl = getClass().getResource(props.getProperty("androidAppLocation")).getFile();
 				String androidAppUrl = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 						+ File.separator + "resources" + File.separator + "app" + File.separator +
-						"Android.SauceLabs.Mobile.Sample.app.2.2.1.apk";
+						"Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
 				utils.log().info("appUrl is" + androidAppUrl);
 				desiredCapabilities.setCapability("app", androidAppUrl);
 
