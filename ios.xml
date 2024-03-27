@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="tests">
-	<test name="iPhone11">
+	<test name="iPhone14ProMax">
 		<listeners>
 			<listener class-name="com.qa.listeners.TestListener" />
 		</listeners>
 		<parameter name="platformName" value="iOS" />
-		<parameter name="udid" value="321266E3-44E0-4DAF-A81E-F15FDCB4A62C" />
-		<parameter name="deviceName" value="iPhone11" />
+		<parameter name="udid" value="00C33F13-93B4-4B19-8822-DA22D9F911C4" />
+		<parameter name="deviceName" value="iPhone14ProMax" />
 		<parameter name="wdaLocalPort" value="10001" />
 		<parameter name="webkitDebugProxyPort" value="11001" />
 		<classes>
